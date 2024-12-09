@@ -210,7 +210,7 @@ def predict_npk():
     try:
         image_urls = request.json.get("image_urls", [])
         if not image_urls:
-            return jsonify({"error": "No image URLs provided."}), 400
+            return jsonify({"error": "Please provide me soil photo", "success": False}), 400
 
         all_features = []
         class_confidences = []
@@ -225,7 +225,7 @@ def predict_npk():
                 verify_result = is_soil_image(image)
                 # Check if the image contains soil
                 if not verify_result[0]:
-                    return jsonify({"error": f"Image at {url} does not contain soil."}), 400
+                    return jsonify({"error": f"Image at {url} does not contain soil.","Success": False, "url":url}), 400
 
                 # Perform soil classification
                 predicted_class, confidence = classify_soil(verify_result[1])
