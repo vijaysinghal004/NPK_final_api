@@ -1,0 +1,13 @@
+Flask==3.1.0
+requests==2.32.3
+joblib==1.4.2
+numpy==1.26.4
+opencv-python==4.10.0.84
+pandas==2.2.3
+scikit-image==0.24.0
+google-generativeai==0.8.3
+tensorflow==2.18.0
+gunicorn==21.2.0
+scikit-learn==1.5.2
+
+

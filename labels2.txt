@@ -1,0 +1,2 @@
+0 soil_image
+1 random_image

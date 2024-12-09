@@ -1,0 +1,8 @@
+0 Alluvial soil
+1 Black soil
+2 Chalky soil
+3 Clay soil
+4 Mary soil
+5 Red soil
+6 Sand soil
+7 Silt soil
