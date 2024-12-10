@@ -36,7 +36,7 @@ soil_output_details = soil_interpreter.get_output_details()
 app = Flask(__name__)
 
 # Configure Gemini AI
-genai.configure(api_key="AIzaSyBRksfAV1XfvLZaz_SHsA3ZoiHY61Nfb04")
+genai.configure(api_key="AIzaSyCqIGLtQS8IFO4xuq_EjU7q88Yvy7KYtL4")
 
 # Define the model and generation configuration
 generation_config = {
@@ -318,6 +318,9 @@ def recommend_fertilizer():
         return jsonify({"error": f"Unexpected error occurred: {str(e)}"}), 500
 
 
+@app.route("/", methods=["GET"])
+def hello():
+    return "server is running"
 # Run the Flask app
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
