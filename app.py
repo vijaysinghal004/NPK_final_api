@@ -188,7 +188,7 @@ def get_fertilizer_recommendation(n_value, p_value, k_value, ph_value, crop_type
         - Soil Type: {soil_type} (other common soil types can be specified)
         - Weather Conditions: {weather} (Can vary depending on region; options could include humid, dry, or temperate)
 
-        Provide the following fertilizer organic and inorganic in JSON:
+        Provide the following fertilizer first organic and then inorganic in JSON:
         {{
             "fertilizer_name": "Common fertilizer name based on soil and crop needs",
             "fertilizer_quantity": "Recommended quantity in kg/hectare",
