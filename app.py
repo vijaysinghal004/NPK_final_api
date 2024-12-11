@@ -188,7 +188,7 @@ def get_fertilizer_recommendation(n_value, p_value, k_value, ph_value, crop_type
         - Soil Type: {soil_type} (other common soil types can be specified)
         - Weather Conditions: {weather} (Can vary depending on region; options could include humid, dry, or temperate)
 
-        Provide the following fertilizer details in JSON:
+        Provide the following fertilizer organic and inorganic in JSON:
         {{
             "fertilizer_name": "Common fertilizer name based on soil and crop needs",
             "fertilizer_quantity": "Recommended quantity in kg/hectare",
@@ -204,6 +204,13 @@ def get_fertilizer_recommendation(n_value, p_value, k_value, ph_value, crop_type
         return parse_gemini_response(result_text)
     else:
         return {"error": "No valid response received from Gemini AI"}
+
+
+@app.route("/", methods=["GET"])
+def hello():
+   # return "server is running"
+    return "server is start"
+
 
 @app.route("/predict_npk", methods=["POST"])
 def predict_npk():
@@ -318,9 +325,6 @@ def recommend_fertilizer():
         return jsonify({"error": f"Unexpected error occurred: {str(e)}"}), 500
 
 
-@app.route("/", methods=["GET"])
-def hello():
-    return "server is running"
 # Run the Flask app
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
