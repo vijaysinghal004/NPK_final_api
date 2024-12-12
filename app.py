@@ -36,7 +36,7 @@ soil_output_details = soil_interpreter.get_output_details()
 app = Flask(__name__)
 
 # Configure Gemini AI
-genai.configure(api_key="AIzaSyCqIGLtQS8IFO4xuq_EjU7q88Yvy7KYtL4")
+genai.configure(api_key="AIzaSyBdACybaHJ_R7SLEWu9xZcuw5DZr03yGtE")
 
 # Define the model and generation configuration
 generation_config = {
@@ -176,19 +176,20 @@ def parse_gemini_response(response_text):
 # Function to generate fertilizer recommendations
 
 
-def get_fertilizer_recommendation(n_value, p_value, k_value, ph_value, crop_type, soil_type, weather):
+def get_fertilizer_recommendation(n_value, p_value, k_value, oc_value, crop_type, soil_type, weather):
+    
     prompt = f"""
         Given the following soil and crop information, generate a **fertilizer recommendation** in **only JSON format**:
         
-        - Nitrogen (N) level: {n_value}% (Consider values: N<=0.02 => low, 0.02<N<=0.05 => moderate, N>0.05 => high)
-        - Phosphorus (P) level: {p_value} ppm (Consider values: P<=6 => low, 6<P<=20 => moderate, P>20 => high)
-        - Potassium (K) level: {k_value} ppm (Consider values: K<=50 => low, 50<K<=150 => moderate, K>150 => high)
-        - pH level: {ph_value}
+        - Nitrogen (N) level: {n_value} kg/ha (Consider values: N<=280 => low, 280<N<=560 => moderate, N>560 => high)
+        - Phosphorus (P) level: {p_value} kg/ha (Consider values: P<=10 => low, 10<P<=25 => moderate, P>25 => high)
+        - Potassium (K) level: {k_value} kg/ha (Consider values: K<=120 => low, 120<K<=280 => moderate, K>280 => high)
+        - Organic_Carbon (oc) level: {oc_value} % (Consider values: oc<=120 => low, 120<oc<=280 => moderate, oc>280 => high)
         - Crop Type: {crop_type} (This could be crops like wheat, rice, maize, etc.)
         - Soil Type: {soil_type} (other common soil types can be specified)
         - Weather Conditions: {weather} (Can vary depending on region; options could include humid, dry, or temperate)
 
-        Provide the following fertilizer organic and inorganic in JSON:
+        Provide the following fertilizer first organic and inorganic in JSON:
         {{
             "fertilizer_name": "Common fertilizer name based on soil and crop needs",
             "fertilizer_quantity": "Recommended quantity in kg/hectare",
@@ -307,23 +308,24 @@ def recommend_fertilizer():
         n_value = data.get("n_value")
         p_value = data.get("p_value")
         k_value = data.get("k_value")
-        ph_value = data.get("ph_value")
+        oc_value = data.get("oc_value")
         crop_type = data.get("crop_type")
         soil_type = data.get("soil_type")
         weather = data.get("weather")
 
-        if None in [n_value, p_value, k_value, ph_value, crop_type, soil_type, weather]:
+        if None in [n_value, p_value, k_value, oc_value, crop_type]:
             return jsonify({"error": "Missing one or more required parameters."}), 400
 
         recommendation = get_fertilizer_recommendation(
-            n_value, p_value, k_value, ph_value, crop_type, soil_type, weather
+            n_value, p_value, k_value, oc_value, crop_type, soil_type, weather
         )
 
         return jsonify(recommendation)
 
     except Exception as e:
         return jsonify({"error": f"Unexpected error occurred: {str(e)}"}), 500
-
+    
+    
 
 # Run the Flask app
 if __name__ == "__main__":
