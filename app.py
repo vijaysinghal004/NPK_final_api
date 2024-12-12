@@ -189,15 +189,31 @@ def get_fertilizer_recommendation(n_value, p_value, k_value, oc_value, crop_type
         - Soil Type: {soil_type} (other common soil types can be specified)
         - Weather Conditions: {weather} (Can vary depending on region; options could include humid, dry, or temperate)
 
-        Provide the following fertilizer first organic and inorganic in JSON:
+
+        Provide the following fertilizer recommendation in **JSON format** with **organic fertilizers , followed by **inorganic fertilizers**:
         {{
-            "fertilizer_name": "Common fertilizer name based on soil and crop needs",
-            "fertilizer_quantity": "Recommended quantity in kg/hectare",
-            "application_schedule": "When to apply (e.g., pre-planting, post-planting)",
-            "application_method": "How to apply (e.g., broadcast, side dressing, fertigation)",
-            "data": "Other important details regarding fertilizer usage or soil improvement"
+           
+ 1. organic :
+    - "fertilizer_name": "Common organic fertilizer name based on soil and crop needs"
+    - "fertilizer_quantity": "Recommended quantity in kg/hectare"
+    - "application_schedule": "When to apply (e.g., pre-planting, post-planting)"
+    - "application_method": "How to apply (e.g., broadcast, side dressing, fertigation)"
+    - "data": "Other important details regarding organic fertilizer usage or soil improvement"
+
+2. inorganic :
+    - "fertilizer_name": "Common inorganic fertilizer name based on soil and crop needs"
+    - "fertilizer_quantity": "Recommended quantity in kg/hectare"
+    - "application_schedule": "When to apply (e.g., pre-planting, post-planting)"
+    - "application_method": "How to apply (e.g., broadcast, side dressing, fertigation)"
+    - "data": "Other important details regarding inorganic fertilizer usage"
         }}
     """
+  
+
+
+
+
+
     response = chat_session.send_message(prompt)
     if response and hasattr(response, 'text'):
         result_text = response.text
